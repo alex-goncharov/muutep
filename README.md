@@ -1,6 +1,6 @@
 # muutep
 
-A test assignment given by a company that is in search for for a seasoned devops.
+A test assignment given by a company that is in search for a seasoned devops.
 
 ## Tasks
 
@@ -34,4 +34,4 @@ AWS access, keys and all.
 
 ### Ansible
 
-I have mentioned on our interview, that I do not like Ansible, now I remember why: it has push based architecture, which means, that is has to know all servers it is managing and has a way of accessing them. First is not a problem really (althouhg i must admit, that discovery delay is quite annoying) and can be worked around: have a separate discovery service, for example. Second, however, can present challenges, which can lead to security compromises. Normally, a service would run in a sort of a bubble, which limits incoming requests to a load balanced VIP or something of the sort. This ensures that every service user (be that human or application) can access the service throuhg a single address and "knowledge" about service infrastructure is limited to a service bubble. With push architecrture, managing servers should reside in the same address space and must be able to access each server. Pull architecture is more flexible in this matter - it allows managemnet servers to sit in the management service bubble and being accessed like a usual service.   
+I have mentioned on our interview, that I do not like Ansible, now I remember why: it has push based architecture, which means, that is has to know all servers it is managing and must have a way of accessing them. First is not a problem really (althouhg i must admit, that discovery delay is quite annoying) and can be worked around: have a separate discovery service, for example. Second, however, can present challenges, which can lead to security compromises. Normally, a service would run in a sort of a bubble, which limits incoming requests to a load balanced VIP or something of the sort. This ensures that every service user (be that human or application) can access the service throuhg a single address and "knowledge" about service infrastructure is limited to a service bubble. With push architecrture, managing servers should reside in the same address space and must be able to access each server. Pull architecture is more flexible in this matter - it allows managemnet servers to sit in the management service bubble and being accessed like a usual service. The difficulties increase when east-west traffic limitations are in place in addition to usual north-south.  
