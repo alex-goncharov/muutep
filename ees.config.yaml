@@ -1,0 +1,9 @@
+aws_access_key_id: null
+aws_secret_access_key: null
+internet_gateway: igw-49d37020
+network:
+  be: {cidr: 10.0.0.64/26, id: subnet-bd4e2ed4, zone: eu-central-1a}
+  fe: {cidr: 10.0.0.0/26, id: subnet-ba4e2ed3, zone: eu-central-1a}
+region_name: eu-central-1
+vpc_cidr_block: 10.0.0.0/24
+vpc_id: vpc-e9e57380
