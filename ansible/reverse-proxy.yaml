@@ -1,0 +1,37 @@
+---
+-
+    hosts: reverse-proxy
+    sudo: true
+    user: ec2-user
+    vars:
+        ssl_cert: /etc/nginx/ssl/es.crt
+        ssl_key: /etc/nginx/ssl/es.key
+    roles:
+        - 
+            role: nginx
+            nginx_certificates:
+                -
+                    src: /home/shura/muutep/ansible/ssl/ia.crt
+                    dst: es.crt
+                -
+                    src: /home/shura/muutep/ansible/ssl/ia.key
+                    dst: es.key
+                    mode: '0644'
+            nginx_sites:
+                -
+                    server_name: es.goncharov.co
+                    file_name: es_http
+                    listen: 80
+                    root: /var/www/es
+                -
+                    server_name: es.goncharov.co
+                    file_name: es_https
+                    listen: 443 ssl
+                    root: /var/www/es
+                    ssl_certificate: "{{ssl_cert}}"
+                    ssl_certificate_key: "{{ssl_key}}"
+                    ssl_session_timeout: 5m
+
+
+
+

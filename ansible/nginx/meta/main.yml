@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: "Alex Goncharov"
+  company: AnsibleWorks
+  min_ansible_version: 1.4
+  platforms:
+   - name: EL
+     versions:
+      - 7
+  categories:
+   - web
+dependencies: []
