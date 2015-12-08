@@ -7,6 +7,8 @@
         ssl_cert: /etc/nginx/ssl/es.crt
         ssl_key: /etc/nginx/ssl/es.key
     roles:
+        -
+            role: datetime
         - 
             role: nginx
             nginx_certificates:

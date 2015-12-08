@@ -1,0 +1,35 @@
+---
+
+-
+    name: set timezone to {{datetime_timezone}}
+    shell: /bin/timedatectl set-timezone {{datetime_timezone}}
+    when: ansible_date_time['tz'] != datetime_timezone
+
+-
+    name: install latest chrony
+    yum:
+        name=chrony
+        state=latest
+    notify:
+        - restart chrony
+-
+    name: configure chrony
+    template:
+        src=chrony.conf.j2
+        dest=/etc/chrony.conf
+        owner=root
+        group=root
+        mode='0644'
+    notify:
+        - restart chrony
+
+-
+    name: get time synchronization status
+    shell: /bin/timedatectl | /bin/awk -F':' '/NTP enabled/ {print $2}'
+    register: datetime_sync
+
+-
+    name: enable timesync
+    shell: /bin/timedatectl set-ntp yes
+    when: datetime_sync.stdout != 'yes'
+
