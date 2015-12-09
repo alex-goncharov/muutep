@@ -36,22 +36,11 @@ ATM confiugres network and starts and instance. It looks like everything is in p
 
 #### Requires
 
-YOU WANT TO BE CAREFUL WITH "-C" FLAG
-
-Python 2.7
-Boto3 https://boto3.readthedocs.org (configured)
-SSH keys configured to access instances
-AWS access, keys and all.
-
+Requirements can be found in project [wiki](https://github.com/alex-goncharov/muutep/wiki/Requirements).
 
 #### Used stuff
 
-http://boto3.readthedocs.org/en/latest/index.html
-http://docs.aws.amazon.com/AWSEC2/latest/UserGuide
-http://chairnerd.seatgeek.com/oauth-support-for-nginx-with-lua/
-https://www.elastic.co/guide/en/elasticsearch/guide/current/index.html
-http://docs.ansible.com/
-https://github.com/bitly/oauth2_proxy
+Requirements can be found in project [wiki](https://github.com/alex-goncharov/muutep/wiki/Docs-and-References).
 
 ##### es rbac
 https://www.elastic.co/blog/playing-http-tricks-nginx
