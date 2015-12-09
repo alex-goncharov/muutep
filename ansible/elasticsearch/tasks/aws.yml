@@ -1,0 +1,15 @@
+---
+# Install AWS Plugin (see https://github.com/elasticsearch/elasticsearch-cloud-aws)
+
+#- 
+#    name: aws | Removing AWS Plugin if it exists
+#    shell:
+#        {{elasticsearch_home_dir}}/bin/plugin --remove cloud-aws
+#    when: elasticsearch_plugin_aws_reinstall == True
+#
+#- 
+#    name: aws | Installing AWS Plugin
+#    shell: {{elasticsearch_home_dir}}/bin/plugin -install elasticsearch/elasticsearch-cloud-aws/{{elasticsearch_plugin_aws_version}}
+#    register: aws_plugins_installed
+#    changed_when: "'Installed' in aws_plugins_installed.stdout"
+#    failed_when: "aws_plugins_installed.rc != 0 and aws_plugins_installed.stdout.find('already exists. To update the plugin') == -1"

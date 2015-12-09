@@ -1,0 +1,18 @@
+---
+-
+    hosts: reverse-proxy
+    sudo: true
+    user: ec2-user
+    vars:
+        ssl_cert: /etc/nginx/ssl/es.crt
+        ssl_key: /etc/nginx/ssl/es.key
+    roles:
+        -
+            role: datetime
+            datetime_timezone: UTC
+        -
+            role: elasticsearch
+
+
+
+

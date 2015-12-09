@@ -1,0 +1,97 @@
+---
+
+-
+    name: elastic-install | Configuring elastic group
+    group: name={{ elasticsearch_group }}
+
+-
+    name: elastic-install | Configuring elastic user
+    user:
+        name={{ elasticsearch_user }}
+        group={{ elasticsearch_group }}
+        createhome=no
+
+-
+    name: add elasticsearch yum repository
+    copy:
+        dest=/etc/yum.repos.d/elasticsearch.repo
+        src=elasticsearch.repo
+        owner=root
+        group=root
+        mode=0644
+
+-
+    name: add elasticsearch rpm key
+    rpm_key:
+        key=https://packages.elastic.co/GPG-KEY-elasticsearch
+        state=present
+
+- 
+    name: elastic-install | Ensure temp elasticsearch directories exists
+    file:
+        state=directory
+        path="{{elasticsearch_work_dir}}"
+        owner="{{elasticsearch_user}}"
+        group="{{elasticsearch_group}}"
+        recurse=yes
+
+- 
+    name: elastic-install | Install Elasticsearch
+    yum:
+        name=elasticsearch
+        state="{{elasticsearch_version}}"
+    notify: restart elasticsearch
+
+
+- name: elastic-install | Ensure elastic directories exists
+  file:
+    path="{{item}}"
+    state=directory
+    owner="{{elasticsearch_user}}"
+    group="{{elasticsearch_group}}"
+    recurse=yes
+  with_items:
+     - "{{elasticsearch_work_dir}}"
+     - "{{elasticsearch_home_dir}}"
+     - "{{elasticsearch_log_dir}}"
+     - "{{elasticsearch_data_dir}}"
+     - "{{elasticsearch_work_dir}}"
+     - "{{elasticsearch_conf_dir}}"
+
+-
+    name: Configure limits for elasticsearch user
+    template:
+        dest="/etc/security/limits.d/10_{{elasticsearch_user}}"
+        owner=root
+        group=root
+        mode=0644
+        src=es_limits.j2
+    when: elasticsearch_max_open_files is defined
+    notify: restart elasticsearch
+
+#- name: elastic-install | Configure initd java opts in /etc/init.d/elasticsearch
+#  lineinfile:
+#    dest=/etc/init.d/elasticsearch
+#    regexp='^(DAEMON_OPTS=".*-Des.max-open-files=true")$'
+#    insertafter='^(DAEMON_OPTS=".*CONF_DIR")$'
+#    line='DAEMON_OPTS="$DAEMON_OPTS -Des.max-open-files=true"'
+#  notify: Restart Elasticsearch
+#
+#- name: elastic-install | Configuring Elasticsearch elasticsearch.yml Node
+#  template:
+#    src=elasticsearch.yml.j2
+#    dest={{ elasticsearch_conf_dir }}/elasticsearch.yml
+#    owner={{ elasticsearch_user }}
+#    group={{ elasticsearch_group }}
+#    mode=0644
+#  when: elasticsearch_conf_dir is defined
+#  notify: Restart Elasticsearch
+#
+#- name : elastic-install | Configure /etc/default/elasticsearch
+#  template:
+#    src=elasticsearch.default.j2
+#    dest=/etc/default/elasticsearch
+#    owner={{ elasticsearch_user }}
+#    group={{ elasticsearch_group }}
+#    mode=0644
+#  notify: Restart Elasticsearch

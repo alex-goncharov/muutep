@@ -1,0 +1,24 @@
+---
+
+elasticsearch_user: elasticsearch
+elasticsearch_group: elasticsearch
+
+elasticsearch_version: present
+
+elasticsearch_max_open_files: 65535
+elasticsearch_max_locked_memory: unlimited
+
+elasticsearch_home_dir: /usr/share/elasticsearch
+elasticsearch_plugin_dir: /usr/share/elasticsearch/plugins
+elasticsearch_log_dir: /var/log/elasticsearch
+elasticsearch_data_dir: /var/lib/elasticsearch
+elasticsearch_work_dir: /tmp/elasticsearch
+elasticsearch_conf_dir: /etc/elasticsearch
+elasticsearch_pid_dir: /var/run
+
+elasticsearch_service_startonboot: no
+elasticsearch_service_state: started
+
+elasticsearch_install_java: "true"
+elasticsearch_java_package: java-1.8.0-openjdk
+elasticsearch_java_package_version: present

@@ -9,6 +9,7 @@
     roles:
         -
             role: datetime
+            datetime_timezone: UTC
         - 
             role: nginx
             nginx_certificates:
@@ -33,7 +34,5 @@
                     ssl_certificate: "{{ssl_cert}}"
                     ssl_certificate_key: "{{ssl_key}}"
                     ssl_session_timeout: 5m
-
-
 
 

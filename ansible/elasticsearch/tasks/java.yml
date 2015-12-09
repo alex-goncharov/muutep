@@ -1,0 +1,6 @@
+---
+
+- name: java | Install
+  yum:
+    pkg={{elasticsearch_java_package}}
+    state={{elasticsearch_java_package_version}}

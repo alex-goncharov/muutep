@@ -1,0 +1,18 @@
+---
+
+- 
+    include: java.yml
+    when: elasticsearch_install_java
+- 
+    include: elastic-install.yml
+- 
+    include: aws.yml
+    when: elasticsearch_plugin_aws_version is defined
+-
+    include: plugins.yml
+    when: elasticsearch_plugins is defined
+-
+    include: marvel.yml
+    when: elasticsearch_plugin_marvel_version is defined
+-
+    include: post.yml
