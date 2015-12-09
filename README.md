@@ -40,7 +40,7 @@ Requirements can be found in project [wiki](https://github.com/alex-goncharov/mu
 
 #### Used stuff
 
-Requirements can be found in project [wiki](https://github.com/alex-goncharov/muutep/wiki/Docs-and-References).
+List of used documentaion and other resources can be found in project [wiki](https://github.com/alex-goncharov/muutep/wiki/Docs-and-References).
 
 ##### es rbac
 https://www.elastic.co/blog/playing-http-tricks-nginx
