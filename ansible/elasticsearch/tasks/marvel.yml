@@ -4,12 +4,12 @@
 
 - 
     name: marvel | Removing Marvel Plugin if it exists
-    shell: {{elasticsearch_home_dir}}/bin/plugin --remove marvel
+    shell: "{{elasticsearch_home_dir}}/bin/plugin --remove marvel"
     ignore_errors: yes
 
 - 
     name: marvel | Installing Marvel Plugin
-    shell: {{elasticsearch_home_dir}}/bin/plugin -i elasticsearch/marvel/{{elasticsearch_plugin_marvel_version}}
+    shell: "{{elasticsearch_home_dir}}/bin/plugin -i elasticsearch/marvel/{{elasticsearch_plugin_marvel_version}}"
     register: marvel_plugins_installed
     changed_when: "'Installed' in marvel_plugins_installed.stdout"
     failed_when: "marvel_plugins_installed.rc != 0 and marvel_plugins_installed.stdout.find('already exists. To update the plugin') == -1"

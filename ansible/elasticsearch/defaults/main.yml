@@ -22,3 +22,24 @@ elasticsearch_service_state: started
 elasticsearch_install_java: "true"
 elasticsearch_java_package: java-1.8.0-openjdk
 elasticsearch_java_package_version: present
+
+elasticsearch_node_master: true
+
+elasticsearch_configuration_default:
+    cluster.name: 'change_me'
+    node.master: 'true'
+    node.name: "{{ansible_hostname}}"
+    path.conf: "{{elasticsearch_conf_dir}}"
+    path.data: "{{elasticsearch_data_dir}}"
+    path.work: "{{elasticsearch_work_dir}}"
+    path.log: "{{elasticsearch_log_dir}}"
+    path.plugins: "{{elasticsearch_plugin_dir}}"
+    bootstrap.mlockall: 'true'
+    network.bind_host: '0.0.0.0'
+    network.publish_host: "{{ansible_default_ipv4['address']}}"
+    transport.tcp.port: 9300
+    http.port: 9200
+    http.enabled: 'true'
+
+elasticsearch_configuration_user:
+    cluster.name: 'esearch'

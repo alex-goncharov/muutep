@@ -1,0 +1,14 @@
+# role defaults
+#
+{% for k,v in elasticsearch_configuration_default | dictsort %}
+{%if k in elasticsearch_configuration_user %}
+# {{k}}: {{v}} is overwritten below
+{% else %}
+{{k}}: {{v}}
+{% endif %}
+{% endfor %}
+
+# user overrides
+{% for k,v in elasticsearch_configuration_user | dictsort %}
+{{k}}: {{v}}
+{% endfor %}
