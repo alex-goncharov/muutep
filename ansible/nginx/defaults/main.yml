@@ -15,6 +15,7 @@ nginx_separate_logs_per_site: True
 nginx_certificates: []
 
 nginx_sites: []
+nginx_http_upstreams: []
 
 # - server:
 #    file_name: ansible_9090

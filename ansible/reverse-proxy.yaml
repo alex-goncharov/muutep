@@ -12,6 +12,9 @@
             datetime_timezone: UTC
         - 
             role: nginx
+            nginx_http_upstreams:
+                es:
+                    - 127.0.0.1:9200
             nginx_certificates:
                 -
                     src: /home/shura/muutep/ansible/ssl/ia.crt
@@ -26,6 +29,13 @@
                     file_name: es_http
                     listen: 80
                     root: /var/www/es
+                    auth_basic: '"hands off"'
+                    auth_basic_user_file: passwords
+                    location:
+                        name: /
+                        proxy_pass: http://es
+                        proxy_redirect: 'off'
+
                 -
                     server_name: es.goncharov.co
                     file_name: es_https
@@ -34,5 +44,16 @@
                     ssl_certificate: "{{ssl_cert}}"
                     ssl_certificate_key: "{{ssl_key}}"
                     ssl_session_timeout: 5m
+    tasks:
+        -
+            name: Add nginx user accounts
+            copy:
+                dest=/etc/nginx/passwords
+                src=files/nginx_passwd
+                owner=root
+                group=root
+                mode=0600
+            notify:
+                reload nginx
 
 
