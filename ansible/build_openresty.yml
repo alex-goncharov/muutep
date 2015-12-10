@@ -1,0 +1,79 @@
+---
+
+-
+    hosts: build-host
+    sudo: false
+    user: ec2-user
+    environment:
+        PATH: "{{ansible_env.PATH}}:/usr/sbin:/sbin"
+    vars:
+        version: 1.9.3.2
+        release: rh7
+        rebuild: False
+    tasks:
+        -
+            name: prepare for rebuild
+            file:
+                path=/home/ec2-user/rpmbuild/RPMS/x86_64/ngx_openresty-1.9.3.2-rh7.x86_64.rpm
+                state=absent
+            when: rebuild
+        -
+            name: check if rpm is built already
+            stat: path=/home/ec2-user/rpmbuild/RPMS/x86_64/ngx_openresty-1.9.3.2-rh7.x86_64.rpm
+            register: rpm_file
+        -
+            name: prepare rpm builddirs
+            file:
+                state=directory
+                path=/home/ec2-user/{{item}}
+            with_items:
+                - rpmbuild/BUILD
+                - rpmbuild/RPMS
+                - rpmbuild/SOURCES
+                - rpmbuild/SPECS
+                - rpmbuild/SRPMS
+            when: rpm_file.stat.isreg == False
+        -
+            name: copy openresty spec file over
+            copy:
+                src: openresty/ngx_openresty.spec
+                dest: rpmbuild/SPECS/ngx_openresty.spec
+            when: rpm_file.stat.isreg == False
+        -
+            name: download openresty
+            shell: wget
+                "http://openresty.org/download/ngx_openresty-{{version}}.tar.gz"
+                -O rpmbuild/SOURCES/ngx_openresty-{{version}}.tar.gz
+            when: rpm_file.stat.isreg == False
+        -
+            name: install required packages
+            yum:
+                name={{item}}
+                state=present
+            with_items:
+                - rpm-build
+                - make
+                - wget
+                - openssl-devel
+                - pcre-devel
+                - readline-devel
+                - gcc-c++
+            when: rpm_file.stat.isreg == False
+
+        -
+            name: build openresty rpm
+            shell: /usr/bin/rpmbuild -ba ~/rpmbuild/SPECS/ngx_openresty.spec
+                --define "version {{version}}"
+                --define "release {{release}}"
+            when: rpm_file.stat.isreg == False
+        -
+            name: fetch openresty rpm
+            fetch:
+                src: "/home/ec2-user/rpmbuild/{{item}}"
+                dest: /tmp
+            with_items:
+                - RPMS/x86_64/ngx_openresty-1.9.3.2-rh7.x86_64.rpm
+                - RPMS/x86_64/ngx_openresty-debuginfo-1.9.3.2-rh7.x86_64.rpm
+                - SRPMS/ngx_openresty-1.9.3.2-rh7.src.rpm
+
+
