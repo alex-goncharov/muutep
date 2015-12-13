@@ -42,25 +42,6 @@ Requirements can be found in project [wiki](https://github.com/alex-goncharov/mu
 
 List of used documentaion and other resources can be found in project [wiki](https://github.com/alex-goncharov/muutep/wiki/Docs-and-References).
 
-##### es rbac
-https://www.elastic.co/blog/playing-http-tricks-nginx
-https://github.com/Asquera/elasticsearch-http-basic
-
-## Interesting blah-blah
-
-### Ansible
-
-I have mentioned, that I do not like Ansible, now I remember why: it has push based architecture, which means, that is has to know all servers it is managing and must have a way of accessing them. First is not a problem really (althouhg i must admit, that discovery delay is quite annoying) and can be worked around: have a separate discovery service, for example. Second, however, can present challenges, which can lead to security compromises. Normally, a service would run in a sort of a bubble, which limits incoming requests to a load balanced VIP or something of the sort. This ensures that every service user (be that human or application) can access the service throuhg a single address and "knowledge" about service infrastructure is limited to a service bubble. With push architecrture, managing servers should reside in the same address space and must be able to access each server. Pull architecture is more flexible in this matter - it allows managemnet servers to sit in the management service bubble and being accessed like a usual service. The difficulties increase when east-west traffic limitations are in place in addition to usual north-south.
-
-It's pretty neat to replace 'for i in ..;do ssh' when compared to mCollective, which looks a bit monstrous if you have a lot of small groups of servers. Although for a usual web farm i would prefer
-MCO any day mainly because of it's pub-sub architecture - it's much much much quicker
-
-Just run Ansible kick in debug mode - scared the hell out of me - 3 and I kid you not, 3! ssh sessions to manage one item on one server, that's looks like a waste.
-
-
-
-### AWS 
-
-It's lovely, I though it is, but it's even better. Just need to get hands properly dirty with it.
+## [https://github.com/alex-goncharov/muutep/wiki/General-talk](Interesting blah-blah)
 
 
