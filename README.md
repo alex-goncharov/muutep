@@ -42,6 +42,6 @@ Requirements can be found in project [wiki](https://github.com/alex-goncharov/mu
 
 List of used documentaion and other resources can be found in project [wiki](https://github.com/alex-goncharov/muutep/wiki/Docs-and-References).
 
-## [https://github.com/alex-goncharov/muutep/wiki/General-talk](Interesting blah-blah)
+## [General Talk](https://github.com/alex-goncharov/muutep/wiki/General-talk]
 
 
